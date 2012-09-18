@@ -174,6 +174,13 @@ UNIQUE (id))");
         $this->assertEquals($expected, ORM::getLastQuery());
     }
 
+    public function testOrderByRawClause()
+    {
+        ORM::forTable('widget')->orderRaw('SOUNDEX(`name`)')->findOne();
+        $expected = "SELECT * FROM `widget` ORDER BY SOUNDEX(`name`) LIMIT 1";
+        $this->assertEquals($expected, ORM::getLastQuery());
+    }
+
     public function testGroupByFindMany()
     {
         ORM::forTable('widget')->groupBy('name')->findMany();
@@ -244,10 +251,17 @@ UNIQUE (id))");
         $this->assertEquals($expected, ORM::getLastQuery());
     }
 
-    public function testRawQueryFindMany()
+    public function testRawQueryWithParameters()
     {
         ORM::forTable('widget')->rawQuery('SELECT `w`.* FROM `widget` w WHERE `name` = ? AND `age` = ?', array('Fred', 5))->findMany();
         $expected = "SELECT `w`.* FROM `widget` w WHERE `name` = 'Fred' AND `age` = '5'";
+        $this->assertEquals($expected, ORM::getLastQuery());
+    }
+
+    public function testRawQueryWithoutParameters()
+    {
+        ORM::forTable('widget')->rawQuery('SELECT `w`.* FROM `widget` w')->findMany();
+        $expected = "SELECT `w`.* FROM `widget` w";
         $this->assertEquals($expected, ORM::getLastQuery());
     }
 
@@ -374,6 +388,15 @@ UNIQUE (id))");
         $widget = ORM::forTable('widget')->findOne(1);
         $widget->name = "Fred";
         $widget->age = 10;
+        $widget->save();
+        $expected = "UPDATE `widget` SET `name` = 'Fred', `age` = '10' WHERE `id` = '1'";
+        $this->assertEquals($expected, ORM::getLastQuery());
+    }
+
+    public function testUpdateMultipleBySet()
+    {
+        $widget = ORM::forTable('widget')->findOne(1);
+        $widget->set(array("name" => "Fred", "age" => 10));
         $widget->save();
         $expected = "UPDATE `widget` SET `name` = 'Fred', `age` = '10' WHERE `id` = '1'";
         $this->assertEquals($expected, ORM::getLastQuery());

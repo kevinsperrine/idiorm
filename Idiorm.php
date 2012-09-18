@@ -550,18 +550,20 @@ class Idiorm
     }
 
     /**
-     * Perform a raw query. The query should contain placeholders,
-     * in either named or question mark style, and the parameters
-     * should be an array of values which will be bound to the
-     * placeholders in the query. If this method is called, all
-     * other query building methods will be ignored.
+     * Perform a raw query. The query can contain placeholders in
+     * either named or question mark style. If placeholders are
+     * used, the parameters should be an array of values which will
+     * be bound to the placeholders in the query. If this method
+     * is called, all other query building methods will be ignored.
      *
      * @param string $query      query string
      * @param array  $parameters array of parameters to bind to the query
      *
-     * @return [type] [description]
+     * @return Idiorm current instance
+     *
+     * @link https://github.com/j4mie/idiorm/commit/f9af1ffce3b01e6e87ded22cc5903c0bf253fbc1
      */
-    public function rawQuery($query, $parameters)
+    public function rawQuery($query, $parameters = array())
     {
         $this->is_raw_query = true;
         $this->rawQuery = $query;
@@ -1094,6 +1096,21 @@ class Idiorm
     }
 
     /**
+     * Add a raw ORDER BY clause
+     * 
+     * @param string $clause raw clause to use for ordering
+     *
+     * @return Idiorm current instance
+     *
+     * @link https://github.com/j4mie/idiorm/commit/b58b452dfa6de53f3864a78cfba9eef1842b95d5
+     */
+    public function orderRaw($clause)
+    {
+        $this->order_by[] = $clause;
+        return $this;
+    }
+
+    /**
      * Add a column to the list of columns to GROUP BY
      *
      * @param string $column_name column name
@@ -1460,11 +1477,19 @@ class Idiorm
      * @param string $value value to assign
      *
      * @return none
+     *
+     * @link https://github.com/j4mie/idiorm/commit/2463ca7ace76a3b8bb9216910ca6f6d8e3f40e15
      */
-    public function set($key, $value)
+    public function set($key, $value = null)
     {
-        $this->data[$key] = $value;
-        $this->dirty_fields[$key] = $value;
+        if (!is_array($key)) {
+            $key = array($key => $value);
+        }
+
+        foreach ($key as $field => $value) {
+            $this->data[$field] = $value;
+            $this->dirty_fields[$field] = $value;
+        }
     }
 
     /**
