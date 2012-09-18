@@ -41,6 +41,13 @@ Changelog
 * Fix bug in quoting column wildcard. j4mie/paris#12
 * Small documentation improvements
 
+#### 2.0.0 - release 2012-09-17
+
+* No new functionality added
+* Massive rewrite to match PSR coding standards and PHPUnit testing
+* Given a 2.0 version number because of breaking backwards compatibility
+
+
 Philosophy
 ----------
 

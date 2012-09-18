@@ -10,7 +10,7 @@
     // In case it's not obvious: this is not the correct way to build web applications!
 
     // Require the idiorm file
-    require_once("idiorm.php");
+    require_once("Idiorm.php");
 
     // Connect to the demo database file
     ORM::configure('sqlite:./demo.sqlite');
@@ -18,7 +18,7 @@
     // This grabs the raw database connection from the ORM
     // class and creates the table if it doesn't already exist.
     // Wouldn't normally be needed if the table is already there.
-    $db = ORM::get_db();
+    $db = ORM::getDb();
     $db->exec("
         CREATE TABLE IF NOT EXISTS contact (
             id INTEGER PRIMARY KEY, 
@@ -31,7 +31,7 @@
     if (!empty($_POST)) {
         
         // Create a new contact object
-        $contact = ORM::for_table('contact')->create();
+        $contact = ORM::forTable('contact')->create();
 
         // SHOULD BE MORE ERROR CHECKING HERE!
 
@@ -48,8 +48,8 @@
     }
 
     // Get a list of all contacts from the database
-    $count = ORM::for_table('contact')->count();
-    $contact_list = ORM::for_table('contact')->find_many();
+    $count = ORM::forTable('contact')->count();
+    $contact_list = ORM::forTable('contact')->findMany();
 ?>
 
 <html>
