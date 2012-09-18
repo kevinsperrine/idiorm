@@ -305,7 +305,7 @@ PRAGMA writable_schema = 0;");
 
     public function testSelectExpressionCountFindMany()
     {
-        ORM::forTable('widget')->selectExpression('COUNT(*)', 'count')->findMany();
+        ORM::forTable('widget')->selectExpr('COUNT(*)', 'count')->findMany();
         $expected = "SELECT COUNT(*) AS `count` FROM `widget`";
         $this->assertEquals($expected, ORM::getLastQuery());
     }

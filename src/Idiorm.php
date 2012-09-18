@@ -516,7 +516,7 @@ class Idiorm
      */
     public function count()
     {
-        $this->selectExpression('COUNT(*)', 'count');
+        $this->selectExpr('COUNT(*)', 'count');
         $result = $this->findOne();
         return ($result !== false && isset($result->count)) ? (int) $result->count : 0;
     }
@@ -634,7 +634,7 @@ class Idiorm
      *
      * @return Idiorm current instance
      */
-    public function selectExpression($expr, $alias = null)
+    public function selectExpr($expr, $alias = null)
     {
         return $this->addResultColumn($expr, $alias);
     }
