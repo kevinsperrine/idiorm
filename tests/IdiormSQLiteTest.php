@@ -51,8 +51,14 @@ UNIQUE (id))");
 
         $STH->execute(array(
             'name' => 'Fred',
-            'age' => 20,
+            'age' => 17,
             'id' => 2
+        ));
+
+        $STH->execute(array(
+            'name' => 'Bob',
+            'age' => 42,
+            'id' => 3
         ));
 
         Orm::setDatabase($this->_db);
@@ -515,9 +521,24 @@ PRAGMA writable_schema = 0;");
     }
     
     // Test caching. This is a bit of a hack.
-    public function testCaching()
+    public function testQueryCaching()
     {
         ORM::configure('caching', true);
+        ORM::forTable('widget')->where('name', 'Fred')->where('age', 17)->findOne();
+        ORM::forTable('widget')->where('name', 'Bob')->where('age', 42)->findOne();
+        $expected = ORM::getLastQuery();
+        ORM::forTable('widget')->where('name', 'Fred')->where('age', 17)->findOne(); // this shouldn't run a query!
+        $this->assertEquals($expected, ORM::getLastQuery());
+    }
+
+    public function testMemcaching()
+    {
+        ORM::configure('caching', true);
+        ORM::configure('caching_driver', 'memcache');
+        ORM::addMemcacheServer(array(
+            'host' => '127.0.0.1',
+            'port' => '11211'
+        ));
         ORM::forTable('widget')->where('name', 'Fred')->where('age', 17)->findOne();
         ORM::forTable('widget')->where('name', 'Bob')->where('age', 42)->findOne();
         $expected = ORM::getLastQuery();

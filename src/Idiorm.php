@@ -121,6 +121,7 @@ class Idiorm
         'identifier_quote_character' => null, // if this is null, will be autodetected
         'logging' => false,
         'caching' => false,
+        'caching_driver' => 'query'
     );
 
     // Database connection, instance of the PDO class
@@ -134,6 +135,12 @@ class Idiorm
 
     // Query cache, only used if query caching is enabled
     protected static $query_cache = array();
+
+    // Memcache, only used if query caching is enabled
+    protected static $memcache;
+
+    // Memcache servers list
+    protected static $memcache_servers = array();
 
     // --------------------------- //
     // --- INSTANCE PROPERTIES --- //
@@ -419,6 +426,38 @@ class Idiorm
         }
 
         return implode('', $parts);
+    }
+
+    /**
+     * Return current, or create a new memcache object and add the current servers
+     * to it.
+     *
+     * @return Memcache memcache object
+     */
+    protected static function getMemcache()
+    {
+        if (is_null(self::$memcache)) {
+            self::$memcache = new Memcached();
+            foreach (self::$memcache_servers as $server) {
+                self::$memcache->addServer($server['host'], $server['port']);
+            }
+        }
+        
+        return self::$memcache;
+    }
+
+    /**
+     * Add a memcache server to the list. $values is an array in the form of
+     *
+     * ['host' => 'hostname',
+     *  'port' => 'portNumber'
+     *  ]
+     *
+     * @param array $servers array of servers to pass to addServer
+     */
+    public static function addMemcacheServer($servers)
+    {
+        array_push(self::$memcache_servers, $servers);
     }
 
     // works in php 5.3+, but haven't figured out a way to make it work
@@ -1380,7 +1419,7 @@ class Idiorm
     }
 
     /**
-     * Check the query cache for the given cache key. If a value
+     * Check the cache driver for the given cache key. If a value
      * is cached for the key, return the value. Otherwise, return false.
      *
      * @param string $cache_key key from which to retrieve value
@@ -1389,20 +1428,37 @@ class Idiorm
      */
     protected static function checkQueryCache($cache_key)
     {
-        if (isset(self::$query_cache[$cache_key])) {
-            return self::$query_cache[$cache_key];
+        switch (self::$config['caching_driver']) {
+        case 'query':
+            return isset(self::$query_cache[$cache_key]) ? self::$query_cache[$cache_key] : false;
+            break;
+        case 'memcache':
+            $memcache = self::getMemcache();
+            return ($memcache->get($cache_key) !== false) ? $memcache->get($cache_key) : false;
+            break;
+        default:
+            throw new Exception("Cache driver not supported");
         }
-        return false;
     }
 
     /**
-     * Clear the query cache
+     * Clear the cache
      *
      * @return none
      */
     public static function clearCache()
     {
-        self::$query_cache = array();
+        switch (self::$config['caching_driver']) {
+        case 'query':
+            self::$_query_cache = array();
+            break;
+        case 'memcache':
+            $memcached = self::getMemcache();
+            $memcached->flush();
+            break;
+        default:
+            throw new Exception("Cache driver not supported");
+        }
     }
 
     /**
@@ -1415,7 +1471,17 @@ class Idiorm
      */
     protected static function cacheQueryResult($cache_key, $value)
     {
-        self::$query_cache[$cache_key] = $value;
+        switch (self::$config['caching_driver']) {
+        case 'query':
+            self::$query_cache[$cache_key] = $value;
+            break;
+        case 'memcache':
+            $memcached = self::getMemcache();
+            $memcached->set($cache_key, $value);
+            break;
+        default:
+            throw new Exception("Cache driver not supported");
+        }
     }
 
     /**
