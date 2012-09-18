@@ -9,6 +9,7 @@ class IdiormSQLiteTest extends PHPUnit_Framework_TestCase
     {
         // Enable logging
         Orm::configure('logging', true);
+        ORM::configure('caching', false);
 
         // Set up the dummy database connection
         $this->_db = new PDO('sqlite::memory:');
@@ -434,6 +435,22 @@ PRAGMA writable_schema = 0;");
         $this->assertEquals($expected, ORM::getLastQuery());
     }
 
+    public function testObjectBackwardsCompatibility()
+    {
+        ORM::forTable('widget')->find_many();
+        $expected = "SELECT * FROM `widget`";
+        $this->assertEquals($expected, ORM::getLastQuery());
+    }
+
+    public function testStaticBackwardsCompatibility()
+    {
+        // adding the return until the fix has been implemented.
+        return $this->fail();
+        ORM::for_table('widget')->find_many();
+        $expected = "SELECT * FROM `widget`";
+        $this->assertEquals($expected, ORM::get_last_query());
+    }
+
     // Regression tests
     public function testSelectAllFindOne()
     {
@@ -506,5 +523,14 @@ PRAGMA writable_schema = 0;");
         $expected = ORM::getLastQuery();
         ORM::forTable('widget')->where('name', 'Fred')->where('age', 17)->findOne(); // this shouldn't run a query!
         $this->assertEquals($expected, ORM::getLastQuery());
+    }
+
+    public function testUnderscoreToCamelCase()
+    {
+        $this->assertEquals('detect', Orm::underscoredToCamelCase('detect'));
+        $this->assertEquals('detectMission', Orm::underscoredToCamelCase('detect_mission'));
+        $this->assertEquals('detectMissionDirectives', Orm::underscoredToCamelCase('detect_mission_directives'));
+        $this->assertEquals('forTable', Orm::underscoredToCamelCase('for_table'));
+        $this->assertEquals('findMany', Orm::underscoredToCamelCase('find_many'));
     }
 }

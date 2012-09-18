@@ -391,7 +391,45 @@ class Idiorm
         return self::$query_log;
     }
 
+    /**
+     * Helper method to convert underscored names to camelCase
+     *
+     * @param string $string underscored string to convert
+     *
+     * @return string camelCased string
+     */
+    public static function underscoredToCamelCase($string)
+    {
+        if (strpos($string, '_') === false) {
+            return strtolower($string);
+        }
 
+        // get all parts
+        $parts = explode('_', $string);
+
+        $first = true;
+        // convert first to lower and rest to camelCase
+        foreach ($parts as &$part) {
+            if ($first) {
+                $part = strtolower($part);
+                $first = false;
+            } else {
+                $part = ucfirst($part);
+            }
+        }
+
+        return implode('', $parts);
+    }
+
+    // works in php 5.3+, but haven't figured out a way to make it work
+    // in < 5.3 yet, so that I can maintain 5.2 compatibility
+    // 
+    // public function __callStatic($name, $args)
+    // {
+    //     $camelCase = self::underscoredToCamelCase($name);
+
+    //     return call_user_func_array(array('Idiorm', $camelCase), $args);
+    // }
 
     // ------------------------ //
     // --- INSTANCE METHODS --- //
@@ -1689,5 +1727,27 @@ class Idiorm
         unset($this->_data[$key]);
         unset($this->_dirty_fields[$key]);
     }
-}
 
+    /**
+     * Magic call method to allow for backwards compatibility on object methods.
+     *
+     * However, this does not work on static methods, so Orm::for_table is still
+     * broken, but Orm::forTable('widget')->find_many() will work, because the 
+     * object has been instanciated by the forTable method.
+     *
+     * ie. find_one calls the PSR findOne method
+     *
+     * @param string $name name of method
+     * @param array  $args arguments passed to method
+     *
+     * @return mixed called the given function
+     */
+    public function __call($name, $args)
+    {
+        $camelCase = self::underscoredToCamelCase($name);
+
+        if (is_callable(array($this, $camelCase))) {
+            return call_user_func_array(array($this, $camelCase), $args);
+        }
+    }
+}
