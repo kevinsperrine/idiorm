@@ -1,4 +1,4 @@
 <?php
 
-require_once "Idiorm.php";
-require_once "Orm.php";
+require_once "src/Idiorm.php";
+require_once "src/Orm.php";
