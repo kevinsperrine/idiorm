@@ -1606,6 +1606,31 @@ class Idiorm
         return $statement->execute($params);
     }
 
+    /**
+     * delete many records from the database
+     *
+     * @link https://github.com/gabrielhora/idiorm/commit/185940c0334cebe5a276954f74b97dc1a27faf92
+     *
+     * @return boolean true on success, false on failure
+     */
+    public function deleteMany()
+    {
+        // Build and return the full DELETE statement by concatenating
+        // the results of calling each separate builder method.
+        
+        $query = $this->joinIfNotEmpty(
+            " ",
+            array("DELETE FROM",
+                $this->quoteIdentifier($this->table_name),
+                $this->buildWhere()
+            )
+        );
+
+        self::logQuery($query, $this->values);
+        $statement = self::$database->prepare($query);
+        return $statement->execute($this->values);
+    }
+
     // --------------------- //
     // --- MAGIC METHODS --- //
     // --------------------- //

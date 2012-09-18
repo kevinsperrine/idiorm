@@ -39,19 +39,29 @@ primary_key INTEGER NOT NULL,
 new_id INTEGER, /*used by the config tests as an override of the default primary key column */
 PRIMARY KEY (id),
 UNIQUE (id))");
+        
         $STH = $this->_db->prepare("INSERT INTO widget (id, name, age) values (:id, :name, :age)");
+        
         $STH->execute(array(
             'name' => 'Fred',
             'age' => 10,
-            'id' => 1)
-        );
+            'id' => 1
+        ));
+
+        $STH->execute(array(
+            'name' => 'Fred',
+            'age' => 20,
+            'id' => 2
+        ));
 
         Orm::setDatabase($this->_db);
     }
 
     public function tearDown()
     {
-        $this->_db->exec("DROP TABLE `widget`;");
+        $this->_db->exec("PRAGMA writable_schema = 1;
+delete from sqlite_master where type = 'table';
+PRAGMA writable_schema = 0;");
         unset($this->_db);
     }
 
@@ -399,6 +409,13 @@ UNIQUE (id))");
         $widget->set(array("name" => "Fred", "age" => 10));
         $widget->save();
         $expected = "UPDATE `widget` SET `name` = 'Fred', `age` = '10' WHERE `id` = '1'";
+        $this->assertEquals($expected, ORM::getLastQuery());
+    }
+
+    public function testDeleteMany()
+    {
+        $widget = ORM::forTable('widget')->whereEqual('name', 'Fred')->deleteMany();
+        $expected = "DELETE FROM `widget` WHERE `name` = 'Fred'";
         $this->assertEquals($expected, ORM::getLastQuery());
     }
 
