@@ -1102,9 +1102,9 @@ class Idiorm
      *
      * @return Idiorm current instance
      *
-     * @link https://github.com/j4mie/idiorm/commit/b58b452dfa6de53f3864a78cfba9eef1842b95d5
+     * @link https://github.com/j4mie/idiorm/commit/089336fcd9417d6c4e40be802b3dec37b11c7d51
      */
-    public function orderRaw($clause)
+    public function orderByExpr($clause)
     {
         $this->order_by[] = $clause;
         return $this;

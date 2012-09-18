@@ -176,7 +176,7 @@ UNIQUE (id))");
 
     public function testOrderByRawClause()
     {
-        ORM::forTable('widget')->orderRaw('SOUNDEX(`name`)')->findOne();
+        ORM::forTable('widget')->orderByExpr('SOUNDEX(`name`)')->findOne();
         $expected = "SELECT * FROM `widget` ORDER BY SOUNDEX(`name`) LIMIT 1";
         $this->assertEquals($expected, ORM::getLastQuery());
     }
