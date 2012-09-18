@@ -458,7 +458,7 @@ Setting: `logging`
 
 Idiorm can log all queries it executes. To enable query logging, set the `logging` option to `true` (it is `false` by default).
 
-When query logging is enabled, you can use two static methods to access the log. `ORM::get_last_query()` returns the most recent query executed. `ORM::get_query_log()` returns an array of all queries executed.
+When query logging is enabled, you can use two static methods to access the log. `ORM::getLastQuery()` returns the most recent query executed. `ORM::getQueryLog()` returns an array of all queries executed.
 
 #### Query caching ####
 
