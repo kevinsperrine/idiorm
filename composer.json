@@ -1,0 +1,10 @@
+{
+    "name": "kevinsperrine/idiorm",
+    "description": "A lightweight nearly-zero-configuration object-relational mapper and fluent query builder for PHP5",
+    "require": {
+        "php": ">=5.2.0"
+    },
+    "autoload": {
+        "classmap": ["Idiorm.php"]
+    }
+}
