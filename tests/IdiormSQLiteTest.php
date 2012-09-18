@@ -1,7 +1,7 @@
 <?php
 
 
-class IdiormTest extends PHPUnit_Framework_TestCase
+class IdiormSQLiteTest extends PHPUnit_Framework_TestCase
 {
     private $_db;
 
