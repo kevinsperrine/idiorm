@@ -1,10 +1,29 @@
 {
     "name": "kevinsperrine/idiorm",
-    "description": "A lightweight nearly-zero-configuration object-relational mapper and fluent query builder for PHP5",
+    "description": "Completely refactored, PSR compliant, version of Idiorm: a lightweight nearly-zero-configuration object-relational mapper and fluent query builder for PHP5.",
+    "keywords": ["orm","idiorm"],
+    "homepage": "https://github.com/kevinsperrine/idiorm",
+    "license": "BSD",
+    "authors": [
+        {
+            "name": "Jamie Matthews",
+            "email": "jamie.matthews@gmail.com",
+            "homepage": "http://j4mie.org/",
+            "role": "Developer"
+        },
+        {
+            "name": "Kevin Perrine",
+            "email": "kperrine@gmail.com",
+            "homepage": "http://kevinperrine.com",
+            "role": "Developer"
+        }
+    ],
     "require": {
         "php": ">=5.2.0"
     },
     "autoload": {
-        "psr-0": { "": "src/" }
+        "psr-0": {
+            "Idiorm": "src/"
+        }
     }
 }
