@@ -46,7 +46,7 @@ UNIQUE (id))");
             'id' => 1)
         );
 
-        Orm::set_db($this->_db);
+        Orm::setDatabase($this->_db);
     }
 
     public function tearDown()
@@ -57,351 +57,351 @@ UNIQUE (id))");
 
     public function testFindManyQuery()
     {
-        ORM::for_table('widget')->find_many();
+        ORM::forTable('widget')->findMany();
         $expected = "SELECT * FROM `widget`";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 
     public function testFindOneQuery()
     {
-        ORM::for_table('widget')->find_one();
+        ORM::forTable('widget')->findOne();
         $expected = "SELECT * FROM `widget` LIMIT 1";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 
     public function testWhereIdIsFindOne()
     {
-        ORM::for_table('widget')->where_id_is(5)->find_one();
+        ORM::forTable('widget')->whereIdIs(5)->findOne();
         $expected = "SELECT * FROM `widget` WHERE `id` = '5' LIMIT 1";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 
     public function testFindOneById()
     {
-        ORM::for_table('widget')->find_one(5);
+        ORM::forTable('widget')->findOne(5);
         $expected = "SELECT * FROM `widget` WHERE `id` = '5' LIMIT 1";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 
     public function testCount()
     {
-        ORM::for_table('widget')->count();
+        ORM::forTable('widget')->count();
         $expected = "SELECT COUNT(*) AS `count` FROM `widget` LIMIT 1";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 
     public function testWhereNameEqualsFindOne()
     {
-    ORM::for_table('widget')->where('name', 'Fred')->find_one();
+    ORM::forTable('widget')->where('name', 'Fred')->findOne();
     $expected = "SELECT * FROM `widget` WHERE `name` = 'Fred' LIMIT 1";
-    $this->assertEquals($expected, ORM::get_last_query());        
+    $this->assertEquals($expected, ORM::getLastQuery());        
     }
 
     public function testWhereCol1EqualsAndCol2Equals()
     {
-    ORM::for_table('widget')->where('name', 'Fred')->where('age', 10)->find_one();
+    ORM::forTable('widget')->where('name', 'Fred')->where('age', 10)->findOne();
     $expected = "SELECT * FROM `widget` WHERE `name` = 'Fred' AND `age` = '10' LIMIT 1";
-    $this->assertEquals($expected, ORM::get_last_query());        
+    $this->assertEquals($expected, ORM::getLastQuery());        
     }
 
     public function testWhereCol1NotEqualsFindMany()
     {   
-        ORM::for_table('widget')->where_not_equal('name', 'Fred')->find_many();
+        ORM::forTable('widget')->whereNotEqual('name', 'Fred')->findMany();
         $expected = "SELECT * FROM `widget` WHERE `name` != 'Fred'";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 
     public function testWhereCol1LikeFindOne()
     {   
-        ORM::for_table('widget')->where_like('name', '%Fred%')->find_one();
+        ORM::forTable('widget')->whereLike('name', '%Fred%')->findOne();
         $expected = "SELECT * FROM `widget` WHERE `name` LIKE '%Fred%' LIMIT 1";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 
     public function testWhereCol1NotLikeFindOne()
     {
-        ORM::for_table('widget')->where_not_like('name', '%Fred%')->find_one();
+        ORM::forTable('widget')->whereNotLike('name', '%Fred%')->findOne();
         $expected = "SELECT * FROM `widget` WHERE `name` NOT LIKE '%Fred%' LIMIT 1";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 
     public function testWhereCol1InFindMany()
     {
-        ORM::for_table('widget')->where_in('name', array('Fred', 'Joe'))->find_many();
+        ORM::forTable('widget')->whereIn('name', array('Fred', 'Joe'))->findMany();
         $expected = "SELECT * FROM `widget` WHERE `name` IN ('Fred', 'Joe')";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 
     public function testWhereColNotInFindMany()
     {
-        ORM::for_table('widget')->where_not_in('name', array('Fred', 'Joe'))->find_many();
+        ORM::forTable('widget')->whereNotIn('name', array('Fred', 'Joe'))->findMany();
         $expected = "SELECT * FROM `widget` WHERE `name` NOT IN ('Fred', 'Joe')";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 
     public function testWhereLimitEqualsFindMany()
     {
-        ORM::for_table('widget')->limit(5)->find_many();
+        ORM::forTable('widget')->limit(5)->findMany();
         $expected = "SELECT * FROM `widget` LIMIT 5";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 
     public function testWhereLimitEqualsAndOffsetEqualsFindMany()
     {
-        ORM::for_table('widget')->limit(5)->offset(5)->find_many();
+        ORM::forTable('widget')->limit(5)->offset(5)->findMany();
         $expected = "SELECT * FROM `widget` LIMIT 5 OFFSET 5";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 
     public function testWhereOrderByDescFindOne()
     {
-        ORM::for_table('widget')->order_by_desc('name')->find_one();
+        ORM::forTable('widget')->orderByDesc('name')->findOne();
         $expected = "SELECT * FROM `widget` ORDER BY `name` DESC LIMIT 1";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 
     public function testWhereOrderByAscFindOne()
     {
-        ORM::for_table('widget')->order_by_asc('name')->find_one();
+        ORM::forTable('widget')->orderByAsc('name')->findOne();
         $expected = "SELECT * FROM `widget` ORDER BY `name` ASC LIMIT 1";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 
     public function testCol1OrderByAscAndCol2OrderByDescFindOne()
     {
-        ORM::for_table('widget')->order_by_asc('name')->order_by_desc('age')->find_one();
+        ORM::forTable('widget')->orderByAsc('name')->orderByDesc('age')->findOne();
         $expected = "SELECT * FROM `widget` ORDER BY `name` ASC, `age` DESC LIMIT 1";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 
     public function testGroupByFindMany()
     {
-        ORM::for_table('widget')->group_by('name')->find_many();
+        ORM::forTable('widget')->groupBy('name')->findMany();
         $expected = "SELECT * FROM `widget` GROUP BY `name`";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 
     public function testCol1GroupByAndCol2GroupByFindMany()
     {
-        ORM::for_table('widget')->group_by('name')->group_by('age')->find_many();
+        ORM::forTable('widget')->groupBy('name')->groupBy('age')->findMany();
         $expected = "SELECT * FROM `widget` GROUP BY `name`, `age`";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 
     public function testWhereCol1EqualsLimitEqualsOffsetOrderByAscFindMany()
     {
-        ORM::for_table('widget')->where('name', 'Fred')->limit(5)->offset(5)->order_by_asc('name')->find_many();
+        ORM::forTable('widget')->where('name', 'Fred')->limit(5)->offset(5)->orderByAsc('name')->findMany();
         $expected = "SELECT * FROM `widget` WHERE `name` = 'Fred' ORDER BY `name` ASC LIMIT 5 OFFSET 5";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 
     public function testWhereCol1LTAndCol1GTFindMany()
     {
-        ORM::for_table('widget')->where_lt('age', 10)->where_gt('age', 5)->find_many();
+        ORM::forTable('widget')->whereLt('age', 10)->whereGt('age', 5)->findMany();
         $expected = "SELECT * FROM `widget` WHERE `age` < '10' AND `age` > '5'";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 
     public function testWhereCol1LTEandCol1GTEFindMany()
     {
-        ORM::for_table('widget')->where_lte('age', 10)->where_gte('age', 5)->find_many();
+        ORM::forTable('widget')->whereLte('age', 10)->whereGte('age', 5)->findMany();
         $expected = "SELECT * FROM `widget` WHERE `age` <= '10' AND `age` >= '5'";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 
     public function testWhereColNullFindMany()
     {
-        ORM::for_table('widget')->where_null('name')->find_many();
+        ORM::forTable('widget')->whereNull('name')->findMany();
         $expected = "SELECT * FROM `widget` WHERE `name` IS NULL";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 
     public function testWhereColNotNullFindMany()
     {
-        ORM::for_table('widget')->where_not_null('name')->find_many();
+        ORM::forTable('widget')->whereNotNull('name')->findMany();
         $expected = "SELECT * FROM `widget` WHERE `name` IS NOT NULL";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 
     public function testWhereRawComplexFindMany()
     {
-        ORM::for_table('widget')->where_raw('`name` = ? AND (`age` = ? OR `age` = ?)', array('Fred', 5, 10))->find_many();
+        ORM::forTable('widget')->whereRaw('`name` = ? AND (`age` = ? OR `age` = ?)', array('Fred', 5, 10))->findMany();
         $expected = "SELECT * FROM `widget` WHERE `name` = 'Fred' AND (`age` = '5' OR `age` = '10')";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 
     public function testWhereRawSimpleFindMany()
     {
-        ORM::for_table('widget')->where_raw('`name` = "Fred"')->find_many();
+        ORM::forTable('widget')->whereRaw('`name` = "Fred"')->findMany();
         $expected = "SELECT * FROM `widget` WHERE `name` = \"Fred\"";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 
     public function testWhereColEqualsAndWhereRawComplexAndWhereCol2EqualsFindMany()
     {
-        ORM::for_table('widget')->where('age', 18)->where_raw('(`name` = ? OR `name` = ?)', array('Fred', 'Bob'))->where('size', 'large')->find_many();
+        ORM::forTable('widget')->where('age', 18)->whereRaw('(`name` = ? OR `name` = ?)', array('Fred', 'Bob'))->where('size', 'large')->findMany();
         $expected = "SELECT * FROM `widget` WHERE `age` = '18' AND (`name` = 'Fred' OR `name` = 'Bob') AND `size` = 'large'";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 
     public function testRawQueryFindMany()
     {
-        ORM::for_table('widget')->raw_query('SELECT `w`.* FROM `widget` w WHERE `name` = ? AND `age` = ?', array('Fred', 5))->find_many();
+        ORM::forTable('widget')->rawQuery('SELECT `w`.* FROM `widget` w WHERE `name` = ? AND `age` = ?', array('Fred', 5))->findMany();
         $expected = "SELECT `w`.* FROM `widget` w WHERE `name` = 'Fred' AND `age` = '5'";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 
     public function testSelectColFindMany()
     {
-        ORM::for_table('widget')->select('name')->find_many();
+        ORM::forTable('widget')->select('name')->findMany();
         $expected = "SELECT `name` FROM `widget`";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 
     public function testSelectCol1SelectCol2FindMany()
     {
-        ORM::for_table('widget')->select('name')->select('age')->find_many();
+        ORM::forTable('widget')->select('name')->select('age')->findMany();
         $expected = "SELECT `name`, `age` FROM `widget`";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 
     public function testSelectDotNotationFindMany()
     {
-        ORM::for_table('widget')->select('widget.name')->find_many();
+        ORM::forTable('widget')->select('widget.name')->findMany();
         $expected = "SELECT `widget`.`name` FROM `widget`";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 
     public function testSelectDotNotationAsFindMany()
     {
-        ORM::for_table('widget')->select('widget.name', 'widget_name')->find_many();
+        ORM::forTable('widget')->select('widget.name', 'widget_name')->findMany();
         $expected = "SELECT `widget`.`name` AS `widget_name` FROM `widget`";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 
     public function testSelectExpressionCountFindMany()
     {
-        ORM::for_table('widget')->select_expr('COUNT(*)', 'count')->find_many();
+        ORM::forTable('widget')->selectExpression('COUNT(*)', 'count')->findMany();
         $expected = "SELECT COUNT(*) AS `count` FROM `widget`";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 
     public function testJoinFindMany()
     {
-        ORM::for_table('widget')->join('widget_handle', array('widget_handle.widget_id', '=', 'widget.id'))->find_many();
+        ORM::forTable('widget')->join('widget_handle', array('widget_handle.widget_id', '=', 'widget.id'))->findMany();
         $expected = "SELECT * FROM `widget` JOIN `widget_handle` ON `widget_handle`.`widget_id` = `widget`.`id`";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 
     public function testInnerJoinFindMany()
     {
-        ORM::for_table('widget')->inner_join('widget_handle', array('widget_handle.widget_id', '=', 'widget.id'))->find_many();
+        ORM::forTable('widget')->innerJoin('widget_handle', array('widget_handle.widget_id', '=', 'widget.id'))->findMany();
         $expected = "SELECT * FROM `widget` INNER JOIN `widget_handle` ON `widget_handle`.`widget_id` = `widget`.`id`";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 
     public function testLeftOuterJoinFindMany()
     {
-        ORM::for_table('widget')->left_outer_join('widget_handle', array('widget_handle.widget_id', '=', 'widget.id'))->find_many();
+        ORM::forTable('widget')->leftOuterJoin('widget_handle', array('widget_handle.widget_id', '=', 'widget.id'))->findMany();
         $expected = "SELECT * FROM `widget` LEFT OUTER JOIN `widget_handle` ON `widget_handle`.`widget_id` = `widget`.`id`";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 
     public function testRightOuterJoinFindMany()
     {
-        ORM::for_table('widget')->right_outer_join('widget_handle', array('widget_handle.widget_id', '=', 'widget.id'))->find_many();
+        ORM::forTable('widget')->rightOuterJoin('widget_handle', array('widget_handle.widget_id', '=', 'widget.id'))->findMany();
         $expected = "SELECT * FROM `widget` RIGHT OUTER JOIN `widget_handle` ON `widget_handle`.`widget_id` = `widget`.`id`";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 
     public function testFullOuterJoinFindMany()
     {
-        ORM::for_table('widget')->full_outer_join('widget_handle', array('widget_handle.widget_id', '=', 'widget.id'))->find_many();
+        ORM::forTable('widget')->fullOuterJoin('widget_handle', array('widget_handle.widget_id', '=', 'widget.id'))->findMany();
         $expected = "SELECT * FROM `widget` FULL OUTER JOIN `widget_handle` ON `widget_handle`.`widget_id` = `widget`.`id`";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 
     public function testComplexJoinFindMany()
     {
-        ORM::for_table('widget')
+        ORM::forTable('widget')
             ->join('widget_handle', array('widget_handle.widget_id', '=', 'widget.id'))
             ->join('widget_nozzle', array('widget_nozzle.widget_id', '=', 'widget.id'))
-            ->find_many();
+            ->findMany();
         $expected = "SELECT * FROM `widget` JOIN `widget_handle` ON `widget_handle`.`widget_id` = `widget`.`id` JOIN `widget_nozzle` ON `widget_nozzle`.`widget_id` = `widget`.`id`";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 
     public function testTableAliasFindMany()
     {
-        ORM::for_table('widget')->table_alias('w')->find_many();
+        ORM::forTable('widget')->tableAlias('w')->findMany();
         $expected = "SELECT * FROM `widget` `w`";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 
     public function testJoinQuotedFindMany()
     {
-        ORM::for_table('widget')->join('widget_handle', array('wh.widget_id', '=', 'widget.id'), 'wh')->find_many();
+        ORM::forTable('widget')->join('widget_handle', array('wh.widget_id', '=', 'widget.id'), 'wh')->findMany();
         $expected = "SELECT * FROM `widget` JOIN `widget_handle` `wh` ON `wh`.`widget_id` = `widget`.`id`";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 
     public function testJoinUnquotedFindMany()
     {
-        ORM::for_table('widget')->join('widget_handle', "widget_handle.widget_id = widget.id")->find_many();
+        ORM::forTable('widget')->join('widget_handle', "widget_handle.widget_id = widget.id")->findMany();
         $expected = "SELECT * FROM `widget` JOIN `widget_handle` ON widget_handle.widget_id = widget.id";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 
     public function testDistinctSelectFindMany()
     {
-        ORM::for_table('widget')->distinct()->select('name')->find_many();
+        ORM::forTable('widget')->distinct()->select('name')->findMany();
         $expected = "SELECT DISTINCT `name` FROM `widget`";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 
     public function testCreateORMObjectAndSave()
     {
-        $widget = ORM::for_table('widget')->create();
+        $widget = ORM::forTable('widget')->create();
         $widget->name = "Fred";
         $widget->age = 10;
         $widget->save();
         $expected = "INSERT INTO `widget` (`name`, `age`) VALUES ('Fred', '10')";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 
     public function testFindExistingObjectByIdUpdateAndSave()
     {
-        $widget = ORM::for_table('widget')->find_one(1);
+        $widget = ORM::forTable('widget')->findOne(1);
         $widget->name = "Fred";
         $widget->age = 10;
         $widget->save();
         $expected = "UPDATE `widget` SET `name` = 'Fred', `age` = '10' WHERE `id` = '1'";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 
     public function testCreateORMObjectFromExistingAndDelete()
     {
-        $widget = ORM::for_table('widget')->find_one(1);
+        $widget = ORM::forTable('widget')->findOne(1);
         $widget->delete();
         $expected = "DELETE FROM `widget` WHERE `id` = '1'";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 
     // Regression tests
     public function testSelectAllFindOne()
     {
-        $widget = ORM::for_table('widget')->select('widget.*')->find_one();
+        $widget = ORM::forTable('widget')->select('widget.*')->findOne();
         $expected = "SELECT `widget`.* FROM `widget` LIMIT 1";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 
     // Tests that alter Idiorm's config are done last
     public function testSetPrimaryKeyColumn()
     {
         ORM::configure('id_column', 'primary_key');
-        ORM::for_table('widget')->find_one(5);
+        ORM::forTable('widget')->findOne(5);
         $expected = "SELECT * FROM `widget` WHERE `primary_key` = '5' LIMIT 1";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 
     public function testIDColumnOverrides()
@@ -412,52 +412,52 @@ UNIQUE (id))");
             'widget_handle' => 'widget_handle_id',
         ));
 
-        ORM::for_table('widget')->find_one(5);
+        ORM::forTable('widget')->findOne(5);
         $expected = "SELECT * FROM `widget` WHERE `widget_id` = '5' LIMIT 1";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
 
-        ORM::for_table('widget_handle')->find_one(5);
+        ORM::forTable('widget_handle')->findOne(5);
         $expected = "SELECT * FROM `widget_handle` WHERE `widget_handle_id` = '5' LIMIT 1";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 
     public function testFindOneByPrimaryKeyId()
     {
-        ORM::for_table('widget_nozzle')->find_one(5);
+        ORM::forTable('widget_nozzle')->findOne(5);
         $expected = "SELECT * FROM `widget_nozzle` WHERE `primary_key` = '5' LIMIT 1";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 
     public function testFindOneWidgetByIdAndUseIdColumn()
     {
         //override the id column for this instance.
-        ORM::for_table('widget')->use_id_column('new_id')->find_one(5);
+        ORM::forTable('widget')->useIdColumn('new_id')->findOne(5);
         $expected = "SELECT * FROM `widget` WHERE `new_id` = '5' LIMIT 1";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 
     public function testFindOneWidgetHandleByIdAndUseIdColumn()
     {
-        ORM::for_table('widget_handle')->use_id_column('new_id')->find_one(5);
+        ORM::forTable('widget_handle')->useIdColumn('new_id')->findOne(5);
         $expected = "SELECT * FROM `widget_handle` WHERE `new_id` = '5' LIMIT 1";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 
     public function testFindOneWidgetNozzleByIdAndUseIdColumn()
     {
-        ORM::for_table('widget_nozzle')->use_id_column('new_id')->find_one(5);
+        ORM::forTable('widget_nozzle')->useIdColumn('new_id')->findOne(5);
         $expected = "SELECT * FROM `widget_nozzle` WHERE `new_id` = '5' LIMIT 1";
-        $this->assertEquals($expected, ORM::get_last_query());
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
     
     // Test caching. This is a bit of a hack.
     public function testCaching()
     {
         ORM::configure('caching', true);
-        ORM::for_table('widget')->where('name', 'Fred')->where('age', 17)->find_one();
-        ORM::for_table('widget')->where('name', 'Bob')->where('age', 42)->find_one();
-        $expected = ORM::get_last_query();
-        ORM::for_table('widget')->where('name', 'Fred')->where('age', 17)->find_one(); // this shouldn't run a query!
-        $this->assertEquals($expected, ORM::get_last_query());
+        ORM::forTable('widget')->where('name', 'Fred')->where('age', 17)->findOne();
+        ORM::forTable('widget')->where('name', 'Bob')->where('age', 42)->findOne();
+        $expected = ORM::getLastQuery();
+        ORM::forTable('widget')->where('name', 'Fred')->where('age', 17)->findOne(); // this shouldn't run a query!
+        $this->assertEquals($expected, ORM::getLastQuery());
     }
 }
