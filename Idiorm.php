@@ -559,9 +559,8 @@ class Idiorm
      * @param string $query      query string
      * @param array  $parameters array of parameters to bind to the query
      *
-     * @return Idiorm current instance
-     *
      * @link https://github.com/j4mie/idiorm/commit/f9af1ffce3b01e6e87ded22cc5903c0bf253fbc1
+     * @return Idiorm current instance
      */
     public function rawQuery($query, $parameters = array())
     {
@@ -1099,10 +1098,9 @@ class Idiorm
      * Add a raw ORDER BY clause
      * 
      * @param string $clause raw clause to use for ordering
-     *
-     * @return Idiorm current instance
-     *
+     * 
      * @link https://github.com/j4mie/idiorm/commit/089336fcd9417d6c4e40be802b3dec37b11c7d51
+     * @return Idiorm current instance
      */
     public function orderByExpr($clause)
     {
@@ -1476,9 +1474,8 @@ class Idiorm
      * @param string $key   column to set
      * @param string $value value to assign
      *
-     * @return none
-     *
      * @link https://github.com/j4mie/idiorm/commit/2463ca7ace76a3b8bb9216910ca6f6d8e3f40e15
+     * @return none
      */
     public function set($key, $value = null)
     {
@@ -1610,7 +1607,6 @@ class Idiorm
      * delete many records from the database
      *
      * @link https://github.com/gabrielhora/idiorm/commit/185940c0334cebe5a276954f74b97dc1a27faf92
-     *
      * @return boolean true on success, false on failure
      */
     public function deleteMany()
@@ -1670,6 +1666,20 @@ class Idiorm
     public function __isset($key)
     {
         return isset($this->data[$key]);
+    }
+
+    /**
+     * Magic unset
+     *
+     * @param string $key key to unset
+     *
+     * @link https://github.com/gabrielhora/idiorm/commit/10195549a516b59376dba29446132cdfaf999ee1
+     * @return none
+     */
+    public function __unset($key)
+    {
+        unset($this->_data[$key]);
+        unset($this->_dirty_fields[$key]);
     }
 }
 
