@@ -804,10 +804,18 @@ class Idiorm
      * @param string $separator   column separator
      * @param string $value       search value
      *
+     * @link https://github.com/gabrielhora/idiorm/commit/784b7d877e7d97ffd11a72b78bba255b2c2b3062
      * @return Idiorm current instance
      */
     protected function addSimpleWhere($column_name, $separator, $value)
     {
+        // Add the table name in case of ambiguous columns
+        if (count($this->join_sources) > 0
+            && strpos($column_name, '.') === false
+        ) {
+            $column_name = "{$this->table_name}.{$column_name}";
+        }
+
         $column_name = $this->quoteIdentifier($column_name);
         return $this->addWhere("{$column_name} {$separator} ?", $value);
     }

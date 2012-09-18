@@ -317,6 +317,13 @@ PRAGMA writable_schema = 0;");
         $this->assertEquals($expected, ORM::getLastQuery());
     }
 
+    public function testSimpleJoinWithWhereId()
+    {
+        ORM::forTable('widget')->join('widget_handle', array('widget_handle.widget_id', '=', 'widget.id'))->findOne(5);
+        $expected = "SELECT * FROM `widget` JOIN `widget_handle` ON `widget_handle`.`widget_id` = `widget`.`id` WHERE `widget`.`id` = '5' LIMIT 1";
+        $this->assertEquals($expected, ORM::getLastQuery());
+    }
+
     public function testInnerJoinFindMany()
     {
         ORM::forTable('widget')->innerJoin('widget_handle', array('widget_handle.widget_id', '=', 'widget.id'))->findMany();
