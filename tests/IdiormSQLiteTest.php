@@ -553,5 +553,8 @@ PRAGMA writable_schema = 0;");
         $this->assertEquals('detectMissionDirectives', Orm::underscoredToCamelCase('detect_mission_directives'));
         $this->assertEquals('forTable', Orm::underscoredToCamelCase('for_table'));
         $this->assertEquals('findMany', Orm::underscoredToCamelCase('find_many'));
+        $this->assertEquals('_findMany', Orm::underscoredToCamelCase('_find_many'));
+        $this->assertEquals('findMany', Orm::underscoredToCamelCase('FIND_Many'));
+        
     }
 }
