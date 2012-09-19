@@ -47,6 +47,17 @@ Changelog
 * Massive rewrite to match PSR coding standards and PHPUnit testing
 * Given a 2.0 version number because of breaking backwards compatibility
 
+#### 2.1.0 - release 2012-09-19
+
+* Added set with multiple values [j4mie](https://github.com/j4mie/idiorm/commit/2463ca7ace76a3b8bb9216910ca6f6d8e3f40e15)
+* Added `orderByExpr` [j4mie](https://github.com/j4mie/idiorm/commit/b58b452dfa6de53f3864a78cfba9eef1842b95d5)
+* Added raw queries without parameters [j4mie](https://github.com/j4mie/idiorm/commit/f9af1ffce3b01e6e87ded22cc5903c0bf253fbc1)
+* Added `deleteMany` [gabrielhora](https://github.com/gabrielhora/idiorm/commit/185940c0334cebe5a276954f74b97dc1a27faf92)
+* Added `__unset` [gabrielhora](https://github.com/gabrielhora/idiorm/commit/10195549a516b59376dba29446132cdfaf999ee1)
+* Added handling of ambiguous column names in joins [gabrielhora](https://github.com/gabrielhora/idiorm/commit/784b7d877e7d97ffd11a72b78bba255b2c2b3062)
+* Added Composer Support and uploaded to Packagist
+* Added support for memcache [quentin-](https://github.com/quentin-/idiorm/commit/65f81eb39b57ce71b7545ca4e2dbc1cd1787a1af)
+
 
 Philosophy
 ----------
@@ -135,7 +146,7 @@ Only a subset of the available conditions supported by SQL are available when us
 
 These limits are deliberate: these are by far the most commonly used criteria, and by avoiding support for very complex queries, the Idiorm codebase can remain small and simple.
 
-Some support for more complex conditions and queries is provided by the `where_raw` and `rawQuery` methods (see below). If you find yourself regularly requiring more functionality than Idiorm can provide, it may be time to consider using a more full-featured ORM.
+Some support for more complex conditions and queries is provided by the `whereRaw` and `rawQuery` methods (see below). If you find yourself regularly requiring more functionality than Idiorm can provide, it may be time to consider using a more full-featured ORM.
 
 ##### Equality: `where`, `whereEqual`, `whereNotEqual` #####
 
@@ -182,13 +193,13 @@ To add a `WHERE column IS NULL` or `WHERE column IS NOT NULL` clause, use the `w
 
 ##### Raw WHERE clauses #####
 
-If you require a more complex query, you can use the `where_raw` method to specify the SQL fragment for the WHERE clause exactly. This method takes two arguments: the string to add to the query, and an (optional) array of parameters which will be bound to the string. If parameters are supplied, the string should contain question mark characters (`?`) to represent the values to be bound, and the parameter array should contain the values to be substituted into the string in the correct order.
+If you require a more complex query, you can use the `whereRaw` method to specify the SQL fragment for the WHERE clause exactly. This method takes two arguments: the string to add to the query, and an (optional) array of parameters which will be bound to the string. If parameters are supplied, the string should contain question mark characters (`?`) to represent the values to be bound, and the parameter array should contain the values to be substituted into the string in the correct order.
 
 This method may be used in a method chain alongside other `where*` methods as well as methods such as `offset`, `limit` and `orderBy*`. The contents of the string you supply will be connected with preceding and following WHERE clauses with AND.
 
     $people = ORM::forTable('person')
                 ->where('name', 'Fred')
-                ->where_raw('(`age` = ? OR `age` = ?)', array(20, 25))
+                ->whereRaw('(`age` = ? OR `age` = ?)', array(20, 25))
                 ->orderByAsc('name')
                 ->findMany();
 
@@ -382,13 +393,13 @@ To delete an object from the database, simply call its `delete` method.
 Idiorm doesn't supply any extra methods to deal with transactions, but it's very easy to use PDO's built-in methods:
 
     // Start a transaction
-    ORM::get_db()->beginTransaction();
+    ORM::getDatabase()->beginTransaction();
 
     // Commit a transaction
-    ORM::get_db()->commit();
+    ORM::getDatabase()->commit();
 
     // Roll back a transaction
-    ORM::get_db()->rollBack();
+    ORM::getDatabase()->rollBack();
 
 For more details, see [the PDO documentation on Transactions](http://www.php.net/manual/en/pdo.transactions.php).
 
@@ -472,6 +483,6 @@ When query caching is enabled, Idiorm will cache the results of every `SELECT` q
 
 * Note that this is an in-memory cache that only persists data for the duration of a single request. This is *not* a replacement for a persistent cache such as [Memcached](http://www.memcached.org/).
 
-* Idiorm's cache is very simple, and does not attempt to invalidate itself when data changes. This means that if you run a query to retrieve some data, modify and save it, and then run the same query again, the results will be stale (ie, they will not reflect your modifications). This could potentially cause subtle bugs in your application. If you have caching enabled and you are experiencing odd behaviour, disable it and try again. If you do need to perform such operations but still wish to use the cache, you can call the `ORM::clear_cache()` to clear all existing cached queries.
+* Idiorm's cache is very simple, and does not attempt to invalidate itself when data changes. This means that if you run a query to retrieve some data, modify and save it, and then run the same query again, the results will be stale (ie, they will not reflect your modifications). This could potentially cause subtle bugs in your application. If you have caching enabled and you are experiencing odd behaviour, disable it and try again. If you do need to perform such operations but still wish to use the cache, you can call the `ORM::clearCache()` to clear all existing cached queries.
 
 * Enabling the cache will increase the memory usage of your application, as all database rows that are fetched during each request are held in memory. If you are working with large quantities of data, you may wish to disable the cache.
