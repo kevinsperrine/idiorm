@@ -418,8 +418,12 @@ class Idiorm
         // convert first to lower and rest to camelCase
         foreach ($parts as &$part) {
             if ($first) {
-                $part = strtolower($part);
-                $first = false;
+                if ($part === '') {
+                    $part = '_';
+                } else {
+                    $part = strtolower($part);
+                    $first = false;
+                }
             } else {
                 $part = ucfirst($part);
             }
