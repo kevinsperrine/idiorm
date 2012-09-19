@@ -23,7 +23,8 @@
     },
     "autoload": {
         "psr-0": {
-            "Idiorm": "src/"
+            "Idiorm": "src/",
+            "Orm": "src/"
         }
     }
 }
