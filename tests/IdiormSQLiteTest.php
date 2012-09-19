@@ -558,11 +558,4 @@ PRAGMA writable_schema = 0;");
         $this->assertEquals('find', Orm::underscoredToCamelCase('Find'));
         $this->assertEquals('_find', Orm::underscoredToCamelCase('_Find'));
     }
-
-    protected static function getMethod($name) {
-        $class = new ReflectionClass('Idiorm');
-        $method = $class->getMethod($name);
-        $method->setAccessible(true);
-        return $method;
-    }
 }
