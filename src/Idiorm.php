@@ -425,7 +425,7 @@ class Idiorm
                     $first = false;
                 }
             } else {
-                $part = ucfirst($part);
+                $part = ucfirst(strtolower($part));
             }
         }
 
@@ -463,16 +463,45 @@ class Idiorm
     {
         array_push(self::$memcache_servers, $servers);
     }
+    
+    /**
+     * Underscored public static functions to maintain backwards compatibility
+     */
+    public static function for_table($tableName)
+    {
+        trigger_error(sprintf('%1$s is <strong>deprecated</strong> since version %2$s! Use %3$s instead.', __FUNCTION__, '2.0', 'forTable'));
+        return self::forTable($tableName);
+    }
 
-    // works in php 5.3+, but haven't figured out a way to make it work
-    // in < 5.3 yet, so that I can maintain 5.2 compatibility
-    // 
-    // public function __callStatic($name, $args)
-    // {
-    //     $camelCase = self::underscoredToCamelCase($name);
+    public static function set_db($database)
+    {
+        trigger_error(sprintf( '%1$s is <strong>deprecated</strong> since version %2$s! Use %3$s instead.', __FUNCTION__, '2.0', 'setDatabase'));
+        self::setDatabase($database);
+    }
 
-    //     return call_user_func_array(array('Idiorm', $camelCase), $args);
-    // }
+    public static function _setup_identifier_quote_character()
+    {
+        trigger_error(sprintf( '%1$s is <strong>deprecated</strong> since version %2$s! Use %3$s instead.', __FUNCTION__, '2.0', 'setupIdentifierQuoteCharacter'));
+        self::setupIdentifierQuoteCharacter();
+    }
+
+    public static function get_db()
+    {
+        trigger_error(sprintf( '%1$s is <strong>deprecated</strong> since version %2$s! Use %3$s instead.', __FUNCTION__, '2.0', 'getDatabase'));
+        return self::getDatabase();
+    }
+
+    public static function get_last_query()
+    {
+        trigger_error(sprintf( '%1$s is <strong>deprecated</strong> since version %2$s! Use %3$s instead.', __FUNCTION__, '2.0', 'getLastQuery'));
+        return self::getLastQuery();
+    }
+
+    public static function get_query_log()
+    {
+        trigger_error(sprintf( '%1$s is <strong>deprecated</strong> since version %2$s! Use %3$s instead.', __FUNCTION__, '2.0', 'getQueryLog'));
+        return self::getQueryLog();
+    }
 
     // ------------------------ //
     // --- INSTANCE METHODS --- //

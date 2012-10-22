@@ -347,16 +347,27 @@ PRAGMA writable_schema = 0;");
 
     public function testRightOuterJoinFindMany()
     {
-        ORM::forTable('widget')->rightOuterJoin('widget_handle', array('widget_handle.widget_id', '=', 'widget.id'))->findMany();
-        $expected = "SELECT * FROM `widget` RIGHT OUTER JOIN `widget_handle` ON `widget_handle`.`widget_id` = `widget`.`id`";
-        $this->assertEquals($expected, ORM::getLastQuery());
+        try {
+            ORM::forTable('widget')->rightOuterJoin('widget_handle', array('widget_handle.widget_id', '=', 'widget.id'))->findMany();
+            $expected = "SELECT * FROM `widget` RIGHT OUTER JOIN `widget_handle` ON `widget_handle`.`widget_id` = `widget`.`id`";
+            $this->assertEquals($expected, ORM::getLastQuery());
+        } catch (PHPUnit_Framework_Error $e) {
+            // The notice was caught, which means that these joins still aren't supported. fail.
+            $this->fail('The sqlite driver doesn\'t support this type of join.');
+        }
     }
 
     public function testFullOuterJoinFindMany()
     {
-        ORM::forTable('widget')->fullOuterJoin('widget_handle', array('widget_handle.widget_id', '=', 'widget.id'))->findMany();
-        $expected = "SELECT * FROM `widget` FULL OUTER JOIN `widget_handle` ON `widget_handle`.`widget_id` = `widget`.`id`";
-        $this->assertEquals($expected, ORM::getLastQuery());
+
+        try {
+            ORM::forTable('widget')->fullOuterJoin('widget_handle', array('widget_handle.widget_id', '=', 'widget.id'))->findMany();
+            $expected = "SELECT * FROM `widget` FULL OUTER JOIN `widget_handle` ON `widget_handle`.`widget_id` = `widget`.`id`";
+            $this->assertEquals($expected, ORM::getLastQuery());
+        } catch (PHPUnit_Framework_Error $e) {
+            // The notice was caught, which means that these joins still aren't supported. fail.
+            $this->fail('The sqlite driver doesn\'t support this type of join.');
+        }
     }
 
     public function testComplexJoinFindMany()
@@ -450,8 +461,20 @@ PRAGMA writable_schema = 0;");
 
     public function testStaticBackwardsCompatibility()
     {
+        $original = PHPUnit_Framework_Error_Notice::$enabled;
+        PHPUnit_Framework_Error_Notice::$enabled = false;
+
+        ORM::for_table('widget')->find_many();
+        $expected = "SELECT * FROM `widget`";
+        $this->assertEquals($expected, ORM::get_last_query());
+
+        PHPUnit_Framework_Error_Notice::$enabled = $original;
+    }
+
+    public function testStaticBackwardsCompatibilityNotices()
+    {
         // adding the return until the fix has been implemented.
-        return $this->fail();
+        $this->setExpectedException('PHPUnit_Framework_Error_Notice');
         ORM::for_table('widget')->find_many();
         $expected = "SELECT * FROM `widget`";
         $this->assertEquals($expected, ORM::get_last_query());
@@ -557,5 +580,6 @@ PRAGMA writable_schema = 0;");
         $this->assertEquals('findMany', Orm::underscoredToCamelCase('FIND_Many'));
         $this->assertEquals('find', Orm::underscoredToCamelCase('Find'));
         $this->assertEquals('_find', Orm::underscoredToCamelCase('_Find'));
+        $this->assertEquals('_findOne', Orm::underscoredToCamelCase('_FIND_ONE'));
     }
 }
