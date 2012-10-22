@@ -1399,6 +1399,7 @@ class Idiorm
                 $filtered_pieces[] = $piece;
             }
         }
+        
         return join($glue, $filtered_pieces);
     }
 

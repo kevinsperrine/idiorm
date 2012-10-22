@@ -58,6 +58,9 @@ Changelog
 * Added Composer Support and uploaded to Packagist
 * Added support for memcache [quentin-](https://github.com/quentin-/idiorm/commit/65f81eb39b57ce71b7545ca4e2dbc1cd1787a1af)
 
+#### 2.1.1 - release 2012-10-22
+* Added the old underscored public static methods to allow backwards compatibility with the original interface.
+
 
 Philosophy
 ----------
