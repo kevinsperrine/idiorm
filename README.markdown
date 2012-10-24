@@ -66,6 +66,9 @@ Changelog
 
 * Added the old underscored public static methods to allow backwards compatibility with the original interface.
 
+#### 2.1.3 - release 2012-10-24
+
+* Added more tests to increase code coverage and fixed a few minor bugs found along the way.
 
 Philosophy
 ----------
