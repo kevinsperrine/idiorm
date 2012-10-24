@@ -72,6 +72,74 @@ PRAGMA writable_schema = 0;");
         unset($this->_db);
     }
 
+    public function testCreateFromArrayOfData()
+    {
+        $widget = ORM::forTable('widget')->create(array(
+            'name' => 'widget1',
+            'age' => '30',
+            'size' => 'large'
+        ));
+
+        $widget->save();
+        $expected = "INSERT INTO `widget` (`name`, `age`, `size`) VALUES ('widget1', '30', 'large')";
+        $this->assertEquals($expected, Orm::getLastQuery());
+
+        $widget->save();
+
+        // This should still be the same query, because second save isn't neccsary
+        // because no values should be dirty
+        $this->assertEquals($expected, Orm::getLastQuery());
+    }
+
+    public function testHydrateMakeValuesDirty()
+    {
+        $widget = ORM::forTable('widget')->create(array(
+            'name' => 'widget1',
+            'age' => '30',
+            'size' => 'large'
+        ));
+
+        $this->assertTrue($widget->isDirty('name'));
+        $this->assertTrue($widget->isDirty('age'));
+        $this->assertTrue($widget->isDirty('size'));
+    }
+
+    public function testSetupDatabase()
+    {
+        Orm::setDatabase(null);
+
+        $this->assertTrue(Orm::getDatabase() instanceof PDO);
+    }
+
+    public function testGetDatabase()
+    {
+        $db = Orm::getDatabase();
+
+        $this->assertTrue($db instanceof PDO);
+    }
+
+    public function testGetQueryLog()
+    {
+        ORM::forTable('widget')->findMany();
+        $expected = "SELECT * FROM `widget`";
+        $this->assertEquals($expected, ORM::getLastQuery());
+        
+        $log = Orm::getQueryLog();
+
+        $this->assertTrue(is_array($log));
+        $this->assertNotEmpty($log);
+        $this->assertContains($expected, $log);
+    }
+
+    public function testGetAsArray()
+    {
+        $widgets = ORM::forTable('widget')->where('name', 'Fred')->findOne();
+        
+        $this->assertTrue(is_array($widgets->asArray()));
+        $this->assertNotEmpty($widgets->asArray());
+        $this->assertContains('Fred', $widgets->asArray('name'));
+    }
+
     public function testFindManyQuery()
     {
         ORM::forTable('widget')->findMany();
@@ -109,16 +177,16 @@ PRAGMA writable_schema = 0;");
 
     public function testWhereNameEqualsFindOne()
     {
-    ORM::forTable('widget')->where('name', 'Fred')->findOne();
-    $expected = "SELECT * FROM `widget` WHERE `name` = 'Fred' LIMIT 1";
-    $this->assertEquals($expected, ORM::getLastQuery());        
+        ORM::forTable('widget')->where('name', 'Fred')->findOne();
+        $expected = "SELECT * FROM `widget` WHERE `name` = 'Fred' LIMIT 1";
+        $this->assertEquals($expected, ORM::getLastQuery());        
     }
 
     public function testWhereCol1EqualsAndCol2Equals()
     {
-    ORM::forTable('widget')->where('name', 'Fred')->where('age', 10)->findOne();
-    $expected = "SELECT * FROM `widget` WHERE `name` = 'Fred' AND `age` = '10' LIMIT 1";
-    $this->assertEquals($expected, ORM::getLastQuery());        
+        ORM::forTable('widget')->where('name', 'Fred')->where('age', 10)->findOne();
+        $expected = "SELECT * FROM `widget` WHERE `name` = 'Fred' AND `age` = '10' LIMIT 1";
+        $this->assertEquals($expected, ORM::getLastQuery());        
     }
 
     public function testWhereCol1NotEqualsFindMany()
@@ -452,8 +520,33 @@ PRAGMA writable_schema = 0;");
         $this->assertEquals($expected, ORM::getLastQuery());
     }
 
+    public function testUnset()
+    {
+        $widget = ORM::forTable('widget')->findOne(1);
+        $widget->name = 'Kevin';
+
+        $this->assertTrue($widget->isDirty('name'));
+        
+        unset($widget->name);
+        
+        $this->assertFalse($widget->isDirty('name'));
+    }
+
+    public function testMagicCall()
+    {
+        try {
+            Orm::forTable('widget')->invalid_function();
+        } catch (Exception $e) {
+            echo $e->getMessage();
+            return;
+        }
+
+        $this->fail();
+    }
+
     public function testObjectBackwardsCompatibility()
     {
+        $this->setExpectedException('PHPUnit_Framework_Error_Notice');
         ORM::forTable('widget')->find_many();
         $expected = "SELECT * FROM `widget`";
         $this->assertEquals($expected, ORM::getLastQuery());
@@ -467,6 +560,23 @@ PRAGMA writable_schema = 0;");
         ORM::for_table('widget')->find_many();
         $expected = "SELECT * FROM `widget`";
         $this->assertEquals($expected, ORM::get_last_query());
+
+        $db = Orm::get_db();
+
+        $this->assertTrue($db instanceof PDO);
+
+        Orm::set_db(null);
+        $db = Orm::get_db();
+
+        $this->assertTrue($db instanceof PDO);
+
+        $log = Orm::get_query_log();
+
+        $this->assertTrue(is_array($log));
+        $this->assertNotEmpty($log);
+
+        Orm::configure('identifier_quote_character', null);
+        Orm::_setup_identifier_quote_character();
 
         PHPUnit_Framework_Error_Notice::$enabled = $original;
     }
@@ -495,6 +605,25 @@ PRAGMA writable_schema = 0;");
         ORM::forTable('widget')->findOne(5);
         $expected = "SELECT * FROM `widget` WHERE `primary_key` = '5' LIMIT 1";
         $this->assertEquals($expected, ORM::getLastQuery());
+    }
+
+    public function testSettingConnectionString()
+    {
+        Orm::configure('sqlite::memory:');
+
+        ORM::forTable('widget')->findMany();
+
+        $expected = "SELECT * FROM `widget`";
+        $this->assertEquals($expected, Orm::getLastQuery());
+    }
+
+    public function testWithoutLogging()
+    {
+        Orm::configure('logging', false);
+        ORM::forTable('widget')->findMany();
+
+        $expected = "SELECT * FROM `widget`";
+        $this->assertEquals($expected, Orm::getLastQuery());
     }
 
     public function testIDColumnOverrides()
@@ -554,6 +683,22 @@ PRAGMA writable_schema = 0;");
         $this->assertEquals($expected, ORM::getLastQuery());
     }
 
+    public function testClearingCache()
+    {
+        ORM::configure('caching', true);
+        ORM::forTable('widget')->where('name', 'Fred')->where('age', 17)->findOne();
+        ORM::forTable('widget')->where('name', 'Bob')->where('age', 42)->findOne();
+        $expected = ORM::getLastQuery();
+        ORM::forTable('widget')->where('name', 'Fred')->where('age', 17)->findOne(); // this shouldn't run a query!
+        $this->assertEquals($expected, ORM::getLastQuery());
+        
+        Orm::clearCache();
+        // this should run now.
+        
+        ORM::forTable('widget')->where('name', 'Fred')->where('age', 17)->findOne();
+        $this->assertEquals("SELECT * FROM `widget` WHERE `name` = 'Fred' AND `age` = '17' LIMIT 1", Orm::getLastQuery());
+    }
+
     public function testMemcaching()
     {
         ORM::configure('caching', true);
@@ -564,9 +709,43 @@ PRAGMA writable_schema = 0;");
         ));
         ORM::forTable('widget')->where('name', 'Fred')->where('age', 17)->findOne();
         ORM::forTable('widget')->where('name', 'Bob')->where('age', 42)->findOne();
+        
         $expected = ORM::getLastQuery();
-        ORM::forTable('widget')->where('name', 'Fred')->where('age', 17)->findOne(); // this shouldn't run a query!
+
+        // this shouldn't run a query!
+        ORM::forTable('widget')->where('name', 'Fred')->where('age', 17)->findOne();
         $this->assertEquals($expected, ORM::getLastQuery());
+
+        Orm::clearCache();
+
+        // this should run now.
+        ORM::forTable('widget')->where('name', 'Fred')->where('age', 17)->findOne();
+        $this->assertEquals("SELECT * FROM `widget` WHERE `name` = 'Fred' AND `age` = '17' LIMIT 1", Orm::getLastQuery());
+    }
+
+    public function testInvalidCachingMethod()
+    {
+        $this->setExpectedException('Exception');
+
+        Orm::configure('caching', true);
+        Orm::configure('caching_driver', 'invalid');
+
+        ORM::forTable('widget')->where('name', 'Fred')->where('age', 17)->findOne();
+    }
+
+    public function testClearingInvalidCache()
+    {
+        $this->setExpectedException('Exception');
+
+        Orm::configure('caching', true);
+        Orm::configure('caching_driver', 'invalid');
+
+        
+        try {
+            ORM::forTable('widget')->where('name', 'Fred')->where('age', 17)->findOne();
+        } catch (Exception $e) {
+            Orm::clearCache();
+        }
     }
 
     public function testUnderscoreToCamelCase()

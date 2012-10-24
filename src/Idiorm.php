@@ -1484,7 +1484,7 @@ class Idiorm
     {
         switch (self::$config['caching_driver']) {
         case 'query':
-            self::$_query_cache = array();
+            self::$query_cache = array();
             break;
         case 'memcache':
             $memcached = self::getMemcache();
@@ -1824,8 +1824,8 @@ class Idiorm
      */
     public function __unset($key)
     {
-        unset($this->_data[$key]);
-        unset($this->_dirty_fields[$key]);
+        unset($this->data[$key]);
+        unset($this->dirty_fields[$key]);
     }
 
     /**
@@ -1846,8 +1846,11 @@ class Idiorm
     {
         $camelCase = self::underscoredToCamelCase($name);
 
-        if (is_callable(array($this, $camelCase))) {
+        if (method_exists($this, $camelCase) && is_callable(array($this, $camelCase))) {
+            trigger_error(sprintf('%1$s is <strong>deprecated</strong> since version %2$s! Use %3$s instead.', $name, '2.0', $camelCase));
             return call_user_func_array(array($this, $camelCase), $args);
         }
+        
+        throw new Exception(sprintf('Neither %1$s or %2$s are callable nor are they valid functions.', $name, $camelCase));
     }
 }

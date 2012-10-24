@@ -1,83 +1,96 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="Idiorm Tests" tests="64" assertions="72" failures="2" errors="0" time="0.366535">
-    <testsuite name="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" tests="64" assertions="72" failures="2" errors="0" time="0.366535">
-      <testcase name="testFindManyQuery" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="75" assertions="1" time="0.014987"/>
-      <testcase name="testFindOneQuery" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="82" assertions="1" time="0.004065"/>
-      <testcase name="testWhereIdIsFindOne" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="89" assertions="1" time="0.004073"/>
-      <testcase name="testFindOneById" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="96" assertions="1" time="0.004388"/>
-      <testcase name="testCount" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="103" assertions="1" time="0.004225"/>
-      <testcase name="testWhereNameEqualsFindOne" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="110" assertions="1" time="0.004255"/>
-      <testcase name="testWhereCol1EqualsAndCol2Equals" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="117" assertions="1" time="0.006144"/>
-      <testcase name="testWhereCol1NotEqualsFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="124" assertions="1" time="0.005545"/>
-      <testcase name="testWhereCol1LikeFindOne" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="131" assertions="1" time="0.004243"/>
-      <testcase name="testWhereCol1NotLikeFindOne" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="138" assertions="1" time="0.004243"/>
-      <testcase name="testWhereCol1InFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="145" assertions="1" time="0.004492"/>
-      <testcase name="testWhereColNotInFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="152" assertions="1" time="0.005557"/>
-      <testcase name="testWhereLimitEqualsFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="159" assertions="1" time="0.006080"/>
-      <testcase name="testWhereLimitEqualsAndOffsetEqualsFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="166" assertions="1" time="0.003776"/>
-      <testcase name="testWhereOrderByDescFindOne" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="173" assertions="1" time="0.004158"/>
-      <testcase name="testWhereOrderByAscFindOne" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="180" assertions="1" time="0.004163"/>
-      <testcase name="testCol1OrderByAscAndCol2OrderByDescFindOne" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="187" assertions="1" time="0.005922"/>
-      <testcase name="testOrderByRawClause" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="194" assertions="1" time="0.005518"/>
-      <testcase name="testGroupByFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="201" assertions="1" time="0.004428"/>
-      <testcase name="testCol1GroupByAndCol2GroupByFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="208" assertions="1" time="0.004689"/>
-      <testcase name="testWhereCol1EqualsLimitEqualsOffsetOrderByAscFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="215" assertions="1" time="0.004594"/>
-      <testcase name="testWhereCol1LTAndCol1GTFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="222" assertions="1" time="0.005984"/>
-      <testcase name="testWhereCol1LTEandCol1GTEFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="229" assertions="1" time="0.005794"/>
-      <testcase name="testWhereColNullFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="236" assertions="1" time="0.004022"/>
-      <testcase name="testWhereColNotNullFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="243" assertions="1" time="0.004548"/>
-      <testcase name="testWhereRawComplexFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="250" assertions="1" time="0.004800"/>
-      <testcase name="testWhereRawSimpleFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="257" assertions="1" time="0.004364"/>
-      <testcase name="testWhereColEqualsAndWhereRawComplexAndWhereCol2EqualsFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="264" assertions="1" time="0.004364"/>
-      <testcase name="testRawQueryWithParameters" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="271" assertions="1" time="0.003121"/>
-      <testcase name="testRawQueryWithoutParameters" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="278" assertions="1" time="0.003829"/>
-      <testcase name="testSelectColFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="285" assertions="1" time="0.004469"/>
-      <testcase name="testSelectCol1SelectCol2FindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="292" assertions="1" time="0.006260"/>
-      <testcase name="testSelectDotNotationFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="299" assertions="1" time="0.004662"/>
-      <testcase name="testSelectDotNotationAsFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="306" assertions="1" time="0.004819"/>
-      <testcase name="testSelectExpressionCountFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="313" assertions="1" time="0.004063"/>
-      <testcase name="testJoinFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="320" assertions="1" time="0.004084"/>
-      <testcase name="testSimpleJoinWithWhereId" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="327" assertions="1" time="0.006125"/>
-      <testcase name="testInnerJoinFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="334" assertions="1" time="0.004553"/>
-      <testcase name="testLeftOuterJoinFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="341" assertions="1" time="0.004879"/>
-      <testcase name="testRightOuterJoinFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="348" assertions="0" time="0.004740">
+  <testsuite name="Idiorm Tests" tests="77" assertions="99" failures="2" errors="0" time="0.426206">
+    <testsuite name="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" tests="77" assertions="99" failures="2" errors="0" time="0.426206">
+      <testcase name="testCreateFromArrayOfData" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="75" assertions="2" time="0.015587"/>
+      <testcase name="testHydrateMakeValuesDirty" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="94" assertions="3" time="0.003488"/>
+      <testcase name="testSetupDatabase" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="107" assertions="1" time="0.002345"/>
+      <testcase name="testGetDatabase" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="114" assertions="1" time="0.002041"/>
+      <testcase name="testGetQueryLog" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="121" assertions="4" time="0.007384"/>
+      <testcase name="testGetAsArray" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="134" assertions="3" time="0.004381"/>
+      <testcase name="testFindManyQuery" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="143" assertions="1" time="0.005042"/>
+      <testcase name="testFindOneQuery" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="150" assertions="1" time="0.004297"/>
+      <testcase name="testWhereIdIsFindOne" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="157" assertions="1" time="0.004225"/>
+      <testcase name="testFindOneById" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="164" assertions="1" time="0.004086"/>
+      <testcase name="testCount" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="171" assertions="1" time="0.004388"/>
+      <testcase name="testWhereNameEqualsFindOne" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="178" assertions="1" time="0.004273"/>
+      <testcase name="testWhereCol1EqualsAndCol2Equals" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="185" assertions="1" time="0.005416"/>
+      <testcase name="testWhereCol1NotEqualsFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="192" assertions="1" time="0.004532"/>
+      <testcase name="testWhereCol1LikeFindOne" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="199" assertions="1" time="0.004233"/>
+      <testcase name="testWhereCol1NotLikeFindOne" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="206" assertions="1" time="0.004191"/>
+      <testcase name="testWhereCol1InFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="213" assertions="1" time="0.004434"/>
+      <testcase name="testWhereColNotInFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="220" assertions="1" time="0.005046"/>
+      <testcase name="testWhereLimitEqualsFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="227" assertions="1" time="0.004945"/>
+      <testcase name="testWhereLimitEqualsAndOffsetEqualsFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="234" assertions="1" time="0.003696"/>
+      <testcase name="testWhereOrderByDescFindOne" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="241" assertions="1" time="0.004160"/>
+      <testcase name="testWhereOrderByAscFindOne" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="248" assertions="1" time="0.004093"/>
+      <testcase name="testCol1OrderByAscAndCol2OrderByDescFindOne" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="255" assertions="1" time="0.004833"/>
+      <testcase name="testOrderByRawClause" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="262" assertions="1" time="0.005822"/>
+      <testcase name="testGroupByFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="269" assertions="1" time="0.004694"/>
+      <testcase name="testCol1GroupByAndCol2GroupByFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="276" assertions="1" time="0.004703"/>
+      <testcase name="testWhereCol1EqualsLimitEqualsOffsetOrderByAscFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="283" assertions="1" time="0.004298"/>
+      <testcase name="testWhereCol1LTAndCol1GTFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="290" assertions="1" time="0.005522"/>
+      <testcase name="testWhereCol1LTEandCol1GTEFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="297" assertions="1" time="0.005221"/>
+      <testcase name="testWhereColNullFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="304" assertions="1" time="0.004629"/>
+      <testcase name="testWhereColNotNullFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="311" assertions="1" time="0.004821"/>
+      <testcase name="testWhereRawComplexFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="318" assertions="1" time="0.004113"/>
+      <testcase name="testWhereRawSimpleFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="325" assertions="1" time="0.004964"/>
+      <testcase name="testWhereColEqualsAndWhereRawComplexAndWhereCol2EqualsFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="332" assertions="1" time="0.004399"/>
+      <testcase name="testRawQueryWithParameters" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="339" assertions="1" time="0.003495"/>
+      <testcase name="testRawQueryWithoutParameters" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="346" assertions="1" time="0.003943"/>
+      <testcase name="testSelectColFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="353" assertions="1" time="0.005138"/>
+      <testcase name="testSelectCol1SelectCol2FindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="360" assertions="1" time="0.005578"/>
+      <testcase name="testSelectDotNotationFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="367" assertions="1" time="0.004917"/>
+      <testcase name="testSelectDotNotationAsFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="374" assertions="1" time="0.004698"/>
+      <testcase name="testSelectExpressionCountFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="381" assertions="1" time="0.004119"/>
+      <testcase name="testJoinFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="388" assertions="1" time="0.004365"/>
+      <testcase name="testSimpleJoinWithWhereId" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="395" assertions="1" time="0.005538"/>
+      <testcase name="testInnerJoinFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="402" assertions="1" time="0.004680"/>
+      <testcase name="testLeftOuterJoinFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="409" assertions="1" time="0.005038"/>
+      <testcase name="testRightOuterJoinFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="416" assertions="0" time="0.004923">
         <failure type="PHPUnit_Framework_AssertionFailedError">IdiormSQLiteTest::testRightOuterJoinFindMany
 The sqlite driver doesn't support this type of join.
 
-/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php:356
+/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php:424
 </failure>
       </testcase>
-      <testcase name="testFullOuterJoinFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="360" assertions="0" time="0.006115">
+      <testcase name="testFullOuterJoinFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="428" assertions="0" time="0.004188">
         <failure type="PHPUnit_Framework_AssertionFailedError">IdiormSQLiteTest::testFullOuterJoinFindMany
 The sqlite driver doesn't support this type of join.
 
-/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php:369
+/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php:437
 </failure>
       </testcase>
-      <testcase name="testComplexJoinFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="373" assertions="1" time="0.007355"/>
-      <testcase name="testTableAliasFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="383" assertions="1" time="0.007273"/>
-      <testcase name="testJoinQuotedFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="390" assertions="1" time="0.006848"/>
-      <testcase name="testJoinUnquotedFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="397" assertions="1" time="0.008753"/>
-      <testcase name="testDistinctSelectFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="404" assertions="1" time="0.007141"/>
-      <testcase name="testCreateORMObjectAndSave" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="411" assertions="1" time="0.004918"/>
-      <testcase name="testFindExistingObjectByIdUpdateAndSave" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="421" assertions="1" time="0.007022"/>
-      <testcase name="testUpdateMultipleBySet" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="431" assertions="1" time="0.008325"/>
-      <testcase name="testDeleteMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="440" assertions="1" time="0.003840"/>
-      <testcase name="testCreateORMObjectFromExistingAndDelete" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="447" assertions="1" time="0.005578"/>
-      <testcase name="testObjectBackwardsCompatibility" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="455" assertions="1" time="0.005384"/>
-      <testcase name="testStaticBackwardsCompatibility" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="462" assertions="1" time="0.008419"/>
-      <testcase name="testStaticBackwardsCompatibilityNotices" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="474" assertions="1" time="0.003973"/>
-      <testcase name="testSelectAllFindOne" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="484" assertions="1" time="0.004583"/>
-      <testcase name="testSetPrimaryKeyColumn" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="492" assertions="1" time="0.004548"/>
-      <testcase name="testIDColumnOverrides" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="500" assertions="2" time="0.008394"/>
-      <testcase name="testFindOneByPrimaryKeyId" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="517" assertions="1" time="0.005173"/>
-      <testcase name="testFindOneWidgetByIdAndUseIdColumn" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="524" assertions="1" time="0.005206"/>
-      <testcase name="testFindOneWidgetHandleByIdAndUseIdColumn" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="532" assertions="1" time="0.005234"/>
-      <testcase name="testFindOneWidgetNozzleByIdAndUseIdColumn" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="539" assertions="1" time="0.005509"/>
-      <testcase name="testQueryCaching" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="547" assertions="1" time="0.011527"/>
-      <testcase name="testMemcaching" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="557" assertions="1" time="0.013031"/>
-      <testcase name="testUnderscoreToCamelCase" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="572" assertions="10" time="0.013361"/>
+      <testcase name="testComplexJoinFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="441" assertions="1" time="0.005293"/>
+      <testcase name="testTableAliasFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="451" assertions="1" time="0.005099"/>
+      <testcase name="testJoinQuotedFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="458" assertions="1" time="0.004862"/>
+      <testcase name="testJoinUnquotedFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="465" assertions="1" time="0.004318"/>
+      <testcase name="testDistinctSelectFindMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="472" assertions="1" time="0.005684"/>
+      <testcase name="testCreateORMObjectAndSave" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="479" assertions="1" time="0.004275"/>
+      <testcase name="testFindExistingObjectByIdUpdateAndSave" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="489" assertions="1" time="0.005968"/>
+      <testcase name="testUpdateMultipleBySet" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="499" assertions="1" time="0.006030"/>
+      <testcase name="testDeleteMany" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="508" assertions="1" time="0.003956"/>
+      <testcase name="testCreateORMObjectFromExistingAndDelete" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="515" assertions="1" time="0.007371"/>
+      <testcase name="testUnset" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="523" assertions="2" time="0.005311"/>
+      <testcase name="testMagicCall" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="535" assertions="0" time="0.002259"/>
+      <testcase name="testObjectBackwardsCompatibility" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="547" assertions="1" time="0.003576"/>
+      <testcase name="testStaticBackwardsCompatibility" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="555" assertions="5" time="0.011273"/>
+      <testcase name="testStaticBackwardsCompatibilityNotices" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="584" assertions="1" time="0.003356"/>
+      <testcase name="testSelectAllFindOne" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="594" assertions="1" time="0.005250"/>
+      <testcase name="testSetPrimaryKeyColumn" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="602" assertions="1" time="0.005356"/>
+      <testcase name="testSettingConnectionString" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="610" assertions="1" time="0.005883"/>
+      <testcase name="testWithoutLogging" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="620" assertions="1" time="0.006031"/>
+      <testcase name="testIDColumnOverrides" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="629" assertions="2" time="0.008540"/>
+      <testcase name="testFindOneByPrimaryKeyId" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="646" assertions="1" time="0.005206"/>
+      <testcase name="testFindOneWidgetByIdAndUseIdColumn" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="653" assertions="1" time="0.005917"/>
+      <testcase name="testFindOneWidgetHandleByIdAndUseIdColumn" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="661" assertions="1" time="0.006046"/>
+      <testcase name="testFindOneWidgetNozzleByIdAndUseIdColumn" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="668" assertions="1" time="0.005212"/>
+      <testcase name="testQueryCaching" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="676" assertions="1" time="0.011481"/>
+      <testcase name="testClearingCache" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="686" assertions="2" time="0.014218"/>
+      <testcase name="testMemcaching" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="702" assertions="2" time="0.017567"/>
+      <testcase name="testInvalidCachingMethod" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="726" assertions="1" time="0.006441"/>
+      <testcase name="testClearingInvalidCache" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="736" assertions="1" time="0.005702"/>
+      <testcase name="testUnderscoreToCamelCase" class="IdiormSQLiteTest" file="/home/kevin/Projects/idiorm/tests/IdiormSQLiteTest.php" line="751" assertions="10" time="0.013802"/>
     </testsuite>
   </testsuite>
 </testsuites>
